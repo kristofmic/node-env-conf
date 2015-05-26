@@ -1,0 +1,8 @@
+{
+  "connection": "global",
+
+  "init": {
+    "foo": "bar",
+    "hello": "world"
+  }
+}
