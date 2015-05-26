@@ -1,6 +1,6 @@
 {
   "name": "node-env-conf",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "private": false,
   "description": "configuration manager that keys off of the node environment",
   "repository": "https://github.com/kristofmic/node-env-conf",
