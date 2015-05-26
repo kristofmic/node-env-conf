@@ -34,7 +34,7 @@ var
   path = require('path'),
   envConf = require('node-env-conf');
 
-// load default configuration
+// load custom configuration
 envConf.init([
   {
     name: 'other_config.json',
