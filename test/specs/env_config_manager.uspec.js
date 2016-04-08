@@ -21,11 +21,30 @@ describe('environment configuration manager', function () {
     });
 
     it('should load the environment configuration file', function() {
-      expect(envConf.get('connection')).to.equal('test');
+      expect(envConf.get('connection')).to.equal('localhost');
     });
 
     it('should load the private configuration file', function() {
       expect(envConf.get('init:foo')).to.equal('baz');
+    });
+  });
+
+  describe('custom environment variable', function() {
+    before(function() {
+      envConf
+        .remove('package.json')
+        .remove('localhost.json')
+        .remove('config.json')
+        .remove('private-config.json');
+
+      process.env.CONFIG = 'test';
+      envConf.init({
+        env: 'CONFIG'
+      });
+    });
+
+    it('should load the environment configuration file', function() {
+      expect(envConf.get('connection')).to.equal('test');
     });
   });
 
@@ -37,12 +56,14 @@ describe('environment configuration manager', function () {
         .remove('config.json')
         .remove('private-config.json');
 
-      envConf.init([
-        {
-          name: 'alt_test.json',
-          path: path.resolve(__dirname, '..', '..', 'env')
-        }
-      ]);
+      envConf.init({
+        configs: [
+          {
+            name: 'alt_test.json',
+            path: path.resolve(__dirname, '..', '..', 'env')
+          }
+        ]
+      });
     });
 
     it('should load the environment variables', function() {
