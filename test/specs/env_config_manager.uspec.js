@@ -8,29 +8,29 @@ describe('environment configuration manager', function () {
       envConf.init();
     });
 
-    it('should load the environment variables', function() {
+    it('should load the environment variables', function () {
       expect(envConf.get('NODE_ENV')).to.equal('test');
     });
 
-    it('should load the package.json file', function() {
+    it('should load the package.json file', function () {
       expect(envConf.get('name')).to.equal('node-env-conf');
     });
 
-    it('should load the global configuration file', function() {
+    it('should load the global configuration file', function () {
       expect(envConf.get('init:hello')).to.equal('world');
     });
 
-    it('should load the environment configuration file', function() {
+    it('should load the environment configuration file', function () {
       expect(envConf.get('connection')).to.equal('localhost');
     });
 
-    it('should load the private configuration file', function() {
+    it('should load the private configuration file', function () {
       expect(envConf.get('init:foo')).to.equal('baz');
     });
   });
 
-  describe('custom environment variable', function() {
-    before(function() {
+  describe('custom environment variable', function () {
+    before(function () {
       envConf
         .remove('package.json')
         .remove('localhost.json')
@@ -43,7 +43,7 @@ describe('environment configuration manager', function () {
       });
     });
 
-    it('should load the environment configuration file', function() {
+    it('should load the environment configuration file', function () {
       expect(envConf.get('connection')).to.equal('test');
     });
   });
@@ -66,24 +66,24 @@ describe('environment configuration manager', function () {
       });
     });
 
-    it('should load the environment variables', function() {
+    it('should load the environment variables', function () {
       expect(envConf.get('NODE_ENV')).to.equal('test');
     });
 
-    it('should NOT load the package.json file', function() {
-      expect(envConf.get('name')).to.be.empty;
+    it('should NOT load the package.json file', function () {
+      expect(envConf.get('name')).to.be.undefined;
     });
 
-    it('should NOT load the global configuration file', function() {
-      expect(envConf.get('init:hello')).to.be.empty;
+    it('should NOT load the global configuration file', function () {
+      expect(envConf.get('init:hello')).to.be.undefined;
     });
 
-    it('should load the environment configuration file ', function() {
+    it('should load the environment configuration file ', function () {
       expect(envConf.get('connection')).to.equal('alt_test');
     });
 
-    it('should load NOT the private configuration file', function() {
-      expect(envConf.get('init:foo')).to.be.empty;
+    it('should load NOT the private configuration file', function () {
+      expect(envConf.get('init:foo')).to.be.undefined;
     });
   });
 });

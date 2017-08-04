@@ -1,30 +1,24 @@
-/*
-Requires all files specified from src to ensure proper coverage reporting.
- */
+const glob = require('glob');
+const path = require('path');
 
-var
-  wrench = require('wrench'),
-  src;
+const matchedPatterns = ['../../lib/**/*.js'];
+const ignoredPatterns = ['**/*.uspec.js'];
 
-src = [
-  'lib'
-];
+matchedPatterns.forEach(pattern => {
+  glob
+    .sync(pattern, {
+      dot: true,
+      ignore: ignoredPatterns,
+    })
+    .forEach(requireFile);
+});
 
-src.forEach(readRecursive);
-
-function readRecursive(dir) {
-  var
-    files = wrench.readdirSyncRecursive(dir);
-
-  files.forEach(requireJsFiles);
-
-  function requireJsFiles(file) {
-    if (isValidFile(file)) {
-      require('../../' + dir + '/' + file);
-    }
+function requireFile(filepath) {
+  if (filepath.indexOf('.uspec') !== -1) {
+    return;
   }
 
-  function isValidFile(file) {
-    return file.indexOf('.js') >= 0;
-  }
+  const fullPath = path.join(__dirname, '..', filepath);
+
+  require(fullPath);
 }
